@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Users', [
+    await queryInterface.bulkInsert('Users', [
       {
         firstName: 'Wes',
         lastName: 'Snipes',
@@ -35,6 +35,18 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3')
       }
     ], {});
+
+    await queryInterface.bulkInsert('Groups', [
+      {
+        "organizerId": 1,
+        "name": "Evening Tennis on the Water",
+        "about": "Enjoy rounds of tennis with a tight-nit group of people on the water facing the Brooklyn Bridge. Singles or doubles.",
+        "type": "In person",
+        "private": true,
+        "city": "New York",
+        "state": "NY",
+      }
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
@@ -44,6 +56,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete('Users', null, {});
+
+    await queryInterface.bulkDelete('Groups', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
   }
 };
