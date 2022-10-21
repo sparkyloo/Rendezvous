@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       startDate: {
         type: Sequelize.DATE
