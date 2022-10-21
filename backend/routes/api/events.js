@@ -68,7 +68,14 @@ router.get('/:eventId', async (req, res) => {
     include: [EventImage, Venue, Group, Attendance]
   });
 
-  let previewImage = null;
+  if (!event) {
+    res.status(404)
+    res.json({
+      "message": "Event couldn't be found",
+      "statusCode": 404
+    })
+  } else {
+    let previewImage = null;
 
     for (const image of event.EventImages) {
       if (image.preview) {
@@ -98,20 +105,23 @@ router.get('/:eventId', async (req, res) => {
       }
     }
 
-  res.status(200)
-  res.json( {
-    "id": event.id,
-    "groupId": event.groupId,
-    "venueId": event.venueId,
-    "name": event.name,
-    "type": event.type,
-    "startDate": event.startDate,
-    "endDate": event.endDate,
-    numAttending: event.Attendances.length,
-    previewImage,
-    Group: theGroup,
-    Venue: theVenue
-  })
+    res.status(200)
+    res.json({
+      "id": event.id,
+      "groupId": event.groupId,
+      "venueId": event.venueId,
+      "name": event.name,
+      "type": event.type,
+      "startDate": event.startDate,
+      "endDate": event.endDate,
+      numAttending: event.Attendances.length,
+      previewImage,
+      Group: theGroup,
+      Venue: theVenue
+    })
+  }
+
+
 });
 
 
