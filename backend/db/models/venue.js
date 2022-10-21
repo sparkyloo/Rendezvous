@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Venue.Event = Venue.hasMany(models.Event, {
+        foreignKey: 'venueId'
+      })
+
+      Venue.Group = Venue.belongsTo(models.Group, {
+        foreignKey: 'groupId'
+      })
     }
   }
   Venue.init({

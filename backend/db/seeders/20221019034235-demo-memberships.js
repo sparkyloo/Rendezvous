@@ -48,6 +48,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete('Memberships', null, {});
-    // await queryInterface.bulkDelete('GroupImages', null, {});
+    await queryInterface.bulkDelete('GroupImages', null, {});
   }
 };

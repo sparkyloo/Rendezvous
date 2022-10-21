@@ -37,7 +37,7 @@ module.exports = {
         field: 'id'
       }
     })
-    await queryInterface.addColumn('Events', 'userId', {
+    await queryInterface.addColumn('Events', 'venueId', {
       type: Sequelize.INTEGER,
     });
 
@@ -45,7 +45,7 @@ module.exports = {
       type: 'FOREIGN KEY',
       onDelete: 'set null',
       onUpdate: 'cascade',
-      fields: ['userId'],
+      fields: ['venueId'],
       references: {
         table: 'Users',
         field: 'id'
@@ -122,7 +122,7 @@ module.exports = {
         field: 'id'
       }
     })
-    
+
     await queryInterface.addColumn('EventImages', 'eventId', {
       type: Sequelize.INTEGER,
     });

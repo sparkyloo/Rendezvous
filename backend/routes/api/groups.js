@@ -1,11 +1,10 @@
 const express = require('express')
-const sequelize = require('sequelize');
+const { validationResult } = require('express-validator');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Membership, Group, GroupImage } = require('../../db/models');
+const { User, Membership, Group, GroupImage, Event, EventImage, Venue, Attendance } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const group = require('../../db/models/group');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -104,8 +103,6 @@ router.get('/:groupId', async (req, res) => {
       break;
     }
   }
-
-
 
   if (!group) {
     res.status(404)
@@ -258,6 +255,188 @@ router.delete('/:groupId', async (req, res) => {
       "statusCode": 200
     })
   }
+})
+
+router.get('/:groupId/events', async (req, res) => {
+  const theGroup = await Group.findByPk(req.params.groupId);
+
+  if (!theGroup) {
+    res.status(404);
+    res.json({
+      "message": "Group couldn't be found",
+      "statusCode": 404
+    })
+
+    return
+  }
+
+  const allEvents = await Event.findAll({
+    where: {
+      groupId: req.params.groupId
+    },
+    include: [Venue, EventImage, Attendance]
+  });
+
+  const formattedEvents = allEvents.map(event => {
+    let previewImage = null;
+
+    for (const image of event.EventImages) {
+      if (image.preview) {
+        previewImage = image.url;
+        break;
+      }
+    }
+
+    let theVenue = null;
+
+    if (event.Venue) {
+      theVenue = {
+        id: event.Venue.id,
+        city: event.Venue.city,
+        state: event.Venue.state
+      }
+    }
+
+    return {
+      id: event.id,
+      groupId: event.groupId,
+      venueId: event.venueId,
+      name: event.name,
+      type: event.type,
+      startDate: event.startDate,
+      // endDate: event.endDate,
+      numAttending: event.Attendances.length,
+      previewImage,
+      Group: {
+        id: theGroup.id,
+        name: theGroup.name,
+        city: theGroup.city,
+        state: theGroup.state
+      },
+      Venue: theVenue
+    }
+  });
+
+  res.status(200);
+  res.json(formattedEvents);
+})
+
+const validateEventInput = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .isLength({
+      min: 5,
+    })
+    .withMessage("Name must be 60 characters or less"),
+  check('type')
+    .exists({ checkFalsy: true })
+    .isIn(['Online', 'In person'])
+    .withMessage("Type must be 'Online' or 'In person'"),
+  check('capacity')
+    .exists({ checkFalsy: true })
+    .isInt()
+    .withMessage("Capacity must be an integer"),
+  check('price')
+    .exists({ checkFalsy: true })
+    .isNumeric()
+    .withMessage("Price is invalid"),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage("Description is required"),
+  check('startDate')
+    .exists({ checkFalsy: true })
+    .isISO8601()
+    .toDate()
+    .withMessage("Start date must be a date"),
+  check('endDate')
+    .exists({ checkFalsy: true })
+    .isISO8601()
+    .toDate()
+    .withMessage("End date must be a date"),
+];
+
+router.post('/:groupId/events', requireAuth, validateEventInput, async (req, res) => {
+  const theGroup = await Group.findByPk(req.params.groupId);
+
+  if (!theGroup) {
+    res.status(404);
+    res.json({
+      "message": "Group couldn't be found",
+      "statusCode": 404
+    })
+
+    return
+  }
+
+  const theVenue = await Venue.findByPk(req.body.venueId);
+
+  if (!theVenue) {
+    res.status(404);
+    res.json({
+      "message": "Venue couldn't be found",
+      "statusCode": 404
+    })
+
+    return
+  }
+
+  const validationErrors = validationResult(req);
+  const errors = {};
+  let hasErrors = false;
+
+  if (!validationErrors.isEmpty()) {
+    validationErrors
+      .array()
+      .forEach((error) => {
+        errors[error.param] = error.msg
+      });
+
+    hasErrors = true;
+  }
+
+  if (req.body.startDate <= new Date()) {
+    errors.startDate = "Start date must be in the future"
+
+    hasErrors = true;
+  }
+
+  if (req.body.endDate <= req.body.startDate) {
+    errors.endDate = "End date is less than start date"
+
+    hasErrors = true;
+  }
+
+  if (hasErrors) {
+    res.status(400);
+    res.json({
+      "message": "Validation error",
+      "statusCode": 400,
+      errors
+    })
+
+    return;
+  }
+
+  const groupId = parseInt(req.params.groupId);
+
+  const newEvent = await Event.create({
+    ...req.body,
+    groupId
+  });
+
+  res.status(200);
+  res.json({
+    groupId,
+    id: newEvent.id,
+    venueId: newEvent.venueId,
+    name: newEvent.name,
+    type: newEvent.type,
+    capacity: newEvent.capacity,
+    price: newEvent.price,
+    description: newEvent.description,
+    startDate: newEvent.startDate,
+    endDate: newEvent.endDate,
+  })
 })
 
 
