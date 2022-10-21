@@ -91,7 +91,8 @@ router.get('/:eventId', async (req, res) => {
         id: event.Group.id,
         name: event.Group.name,
         city: event.Group.city,
-        state: event.Group.state
+        state: event.Group.state,
+        private: event.Group.private
       }
     }
 
@@ -116,13 +117,136 @@ router.get('/:eventId', async (req, res) => {
       "endDate": event.endDate,
       numAttending: event.Attendances.length,
       previewImage,
+      EventImages: event.EventImages.map(image => image.url),
+      description: event.description,
+      price: event.price,
+      capacity: event.capacity,
       Group: theGroup,
       Venue: theVenue
     })
   }
-
-
 });
 
+router.delete('/:eventId', async (req, res) => {
+  const theEvent = await Event.findByPk(req.params.eventId)
+
+  if (!theEvent) {
+    res.status(404)
+    res.json({
+      "message": "Event couldn't be found",
+      "statusCode": 404
+    })
+  } else {
+    await theEvent.destroy()
+
+    res.status(200)
+    res.json({
+      "message": "Successfully deleted",
+      "statusCode": 200
+    })
+  }
+})
+
+const validateEventInput = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .isLength({
+      min: 5,
+    })
+    .withMessage("Name must be 60 characters or less"),
+  check('type')
+    .exists({ checkFalsy: true })
+    .isIn(['Online', 'In person'])
+    .withMessage("Type must be 'Online' or 'In person'"),
+  check('capacity')
+    .exists({ checkFalsy: true })
+    .isInt()
+    .withMessage("Capacity must be an integer"),
+  check('price')
+    .exists({ checkFalsy: true })
+    .isNumeric()
+    .withMessage("Price is invalid"),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage("Description is required"),
+  check('startDate')
+    .exists({ checkFalsy: true })
+    .isISO8601()
+    .toDate()
+    .withMessage("Start date must be a date"),
+  check('endDate')
+    .exists({ checkFalsy: true })
+    .isISO8601()
+    .toDate()
+    .withMessage("End date must be a date"),
+];
+
+router.put('/:eventId', requireAuth, validateEventInput, async (req, res) => {
+  const theEvent = await Event.findByPk(req.params.eventId);
+
+  if (!theEvent) {
+    res.status(404)
+    res.json({
+      "message": "Event couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  const theVenue = await Venue.findByPk(req.body.venueId);
+
+  if (!theVenue) {
+    res.status(404);
+    res.json({
+      "message": "Venue couldn't be found",
+      "statusCode": 404
+    })
+
+    return
+  }
+
+  const validationErrors = validationResult(req);
+  const errors = {};
+  let hasErrors = false;
+
+  if (!validationErrors.isEmpty()) {
+    validationErrors
+      .array()
+      .forEach((error) => {
+        errors[error.param] = error.msg
+      });
+
+    hasErrors = true;
+  }
+
+  if (req.body.startDate <= new Date()) {
+    errors.startDate = "Start date must be in the future"
+
+    hasErrors = true;
+  }
+
+  if (req.body.endDate <= req.body.startDate) {
+    errors.endDate = "End date is less than start date"
+
+    hasErrors = true;
+  }
+
+  if (hasErrors) {
+    res.status(400);
+    res.json({
+      "message": "Validation error",
+      "statusCode": 400,
+      errors
+    })
+
+    return;
+  }
+
+
+  await theEvent.set(req.body);
+
+  res.status(200)
+  res.json(theEvent.toJSON());
+
+})
 
 module.exports = router;
