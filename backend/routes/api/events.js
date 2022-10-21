@@ -1,4 +1,5 @@
 const express = require('express')
+const { validationResult } = require('express-validator');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Membership, Group, EventImage, Event, Venue, Attendance } = require('../../db/models');
