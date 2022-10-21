@@ -106,7 +106,7 @@ router.get('/:eventId', async (req, res) => {
         state: event.Venue.state,
         address: event.Venue.address,
         lat: event.Venue.lat,
-        long: event.Venue.long,
+        lng: event.Venue.lng,
 
       }
     }
