@@ -103,7 +103,11 @@ router.get('/:eventId', async (req, res) => {
       theVenue = {
         id: event.Venue.id,
         city: event.Venue.city,
-        state: event.Venue.state
+        state: event.Venue.state,
+        address: event.Venue.address,
+        lat: event.Venue.lat,
+        long: event.Venue.long,
+
       }
     }
 
@@ -246,7 +250,18 @@ router.put('/:eventId', requireAuth, validateEventInput, async (req, res) => {
   await theEvent.set(req.body);
 
   res.status(200)
-  res.json(theEvent.toJSON());
+  res.json({
+    "id": theEvent.id,
+    "groupId": theEvent.groupId,
+    "venueId": theEvent.venueId,
+    "name": theEvent.name,
+    "type": theEvent.type,
+    "capacity": theEvent.capacity,
+    "price": theEvent.price,
+    "description": theEvent.description,
+    "startDate": theEvent.startDate,
+    "endDate": theEvent.endDate,
+  });
 
 })
 

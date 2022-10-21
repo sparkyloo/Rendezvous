@@ -318,7 +318,9 @@ router.get('/:groupId/events', async (req, res) => {
   });
 
   res.status(200);
-  res.json(formattedEvents);
+  res.json({
+    Events: formattedEvents
+  });
 })
 
 const validateEventInput = [
