@@ -51,26 +51,26 @@ router.get('/current', requireAuth, async (req, res) => {
     },
     include: {
       model: Group,
-      include: [Membership, GroupImage]
+      include: Membership
     }
   });
 
-  console.log({myMemberships})
+  
 
   res.status(200)
   res.json({
     Groups: myMemberships.map(membership => {
-      console.log({membership})
+
 
       let group = membership.Group;
       let previewImage = null;
 
-      for (const image of group.GroupImages) {
-        if (image.preview) {
-          previewImage = image.url;
-          break;
-        }
-      }
+      // for (const image of group.GroupImages) {
+      //   if (image.preview) {
+      //     previewImage = image.url;
+      //     break;
+      //   }
+      // }
 
       return {
         "id": group.id,
