@@ -102,14 +102,14 @@ router.get('/:groupId', async (req, res) => {
       "statusCode": 404
     })
   } else {
-    let previewImage = null;
+    // let previewImage = null;
 
-    for (const image of group.GroupImages) {
-      if (image.preview) {
-        previewImage = image.url;
-        break;
-      }
-    }
+    // for (const image of group.GroupImages) {
+    //   if (image.preview) {
+    //     previewImage = image.url;
+    //     break;
+    //   }
+    // }
 
     res.status(200)
     res.json({
@@ -124,7 +124,7 @@ router.get('/:groupId', async (req, res) => {
       "createdAt": group.createdAt,
       "updatedAt": group.updatedAt,
       numMembers: group.Memberships.length,
-      previewImage,
+      // previewImage,
       GroupImages: group.GroupImages.map(image => image.url),
       Organizer: {
         id: group.User.id,

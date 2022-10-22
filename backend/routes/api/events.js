@@ -76,14 +76,14 @@ router.get('/:eventId', async (req, res) => {
       "statusCode": 404
     })
   } else {
-    let previewImage = null;
+    // let previewImage = null;
 
-    for (const image of event.EventImages) {
-      if (image.preview) {
-        previewImage = image.url;
-        break;
-      }
-    }
+    // for (const image of event.EventImages) {
+    //   if (image.preview) {
+    //     previewImage = image.url;
+    //     break;
+    //   }
+    // }
 
     let theGroup = null;
 
@@ -121,7 +121,7 @@ router.get('/:eventId', async (req, res) => {
       "startDate": event.startDate,
       "endDate": event.endDate,
       numAttending: event.Attendances.length,
-      previewImage,
+      // previewImage,
       EventImages: event.EventImages.map(image => image.url),
       description: event.description,
       price: event.price,
