@@ -16,7 +16,7 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert(
-      { ...options, tableName: "Events" },
+      "Events",
       [
         {
           groupId: 1,
@@ -39,7 +39,7 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      { ...options, tableName: "Venues" },
+      "Venues",
       [
         {
           groupId: 1,
@@ -54,7 +54,7 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      { ...options, tableName: "Attendances" },
+      "Attendances",
       [
         {
           eventId: 1,
@@ -81,7 +81,7 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      { ...options, tableName: "EventImages" },
+      "EventImages",
       [
         {
           eventId: 1,
@@ -100,25 +100,9 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete({...options, tableName: 'People'}, null, {});
      */
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "Events" },
-      null,
-      {}
-    );
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "Venues" },
-      null,
-      {}
-    );
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "Attendances" },
-      null,
-      {}
-    );
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "EventImages" },
-      null,
-      {}
-    );
+    await queryInterface.bulkDelete("Events", null, {});
+    await queryInterface.bulkDelete("Venues", null, {});
+    await queryInterface.bulkDelete("Attendances", null, {});
+    await queryInterface.bulkDelete("EventImages", null, {});
   },
 };

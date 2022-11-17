@@ -17,7 +17,7 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert(
-      { ...options, tableName: "Users" },
+      "Users",
       [
         {
           firstName: "Wes",
@@ -45,7 +45,7 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      { ...options, tableName: "Groups" },
+      "Groups",
       [
         {
           organizerId: 1,
@@ -70,15 +70,7 @@ module.exports = {
      * await queryInterface.bulkDelete({...options, tableName:'People', null, {}});
      */
 
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "Groups" },
-      null,
-      {}
-    );
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "Users" },
-      null,
-      {}
-    );
+    await queryInterface.bulkDelete("Groups", null, {});
+    await queryInterface.bulkDelete("Users", null, {});
   },
 };

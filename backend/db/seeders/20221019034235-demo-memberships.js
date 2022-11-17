@@ -17,7 +17,7 @@ module.exports = {
      */
 
     await queryInterface.bulkInsert(
-      { ...options, tableName: "Memberships" },
+      "Memberships",
       [
         {
           userId: 1,
@@ -39,7 +39,7 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      { ...options, tableName: "GroupImages" },
+      "GroupImages",
       [
         {
           groupId: 1,
@@ -58,15 +58,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete({...options, tableName: 'People'}, null, {});
      */
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "Memberships" },
-      null,
-      {}
-    );
-    await queryInterface.bulkDelete(
-      { ...options, tableName: "GroupImages" },
-      null,
-      {}
-    );
+    await queryInterface.bulkDelete("Memberships", null, {});
+    await queryInterface.bulkDelete("GroupImages", null, {});
   },
 };
