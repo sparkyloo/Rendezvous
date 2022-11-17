@@ -13,80 +13,55 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn(
-      { ...options, tableName: "Groups" },
-      "organizerId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
+    await queryInterface.addColumn("Groups", "organizerId", {
+      type: Sequelize.INTEGER,
+    });
+
+    await queryInterface.addConstraint("Groups", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["organizerId"],
+      references: {
+        table: "Users",
+        field: "id",
+      },
+    });
+    await queryInterface.addColumn("Events", "groupId", {
+      type: Sequelize.INTEGER,
+    });
+
+    await queryInterface.addConstraint("Events", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["groupId"],
+      references: {
+        table: "Groups",
+        field: "id",
+      },
+    });
+    await queryInterface.addColumn("Events", "venueId", {
+      type: Sequelize.INTEGER,
+    });
+
+    await queryInterface.addConstraint("Events", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["venueId"],
+      references: {
+        table: "Users",
+        field: "id",
+      },
+    });
+
+    await queryInterface.addColumn("Memberships", "groupId", {
+      type: Sequelize.INTEGER,
+    });
 
     await queryInterface.addConstraint(
-      { ...options, tableName: "Groups" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["organizerId"],
-        references: {
-          table: "Users",
-          field: "id",
-        },
-      }
-    );
-    await queryInterface.addColumn(
-      { ...options, tableName: "Events" },
-      "groupId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
-
-    await queryInterface.addConstraint(
-      { ...options, tableName: "Events" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["groupId"],
-        references: {
-          table: "Groups",
-          field: "id",
-        },
-      }
-    );
-    await queryInterface.addColumn(
-      { ...options, tableName: "Events" },
-      "venueId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
-
-    await queryInterface.addConstraint(
-      { ...options, tableName: "Events" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["venueId"],
-        references: {
-          table: "Users",
-          field: "id",
-        },
-      }
-    );
-
-    await queryInterface.addColumn(
-      { ...options, tableName: "Memberships" },
-      "groupId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
-
-    await queryInterface.addConstraint(
-      { ...options, tableName: "Memberships" },
+      "Memberships",
 
       {
         type: "FOREIGN KEY",
@@ -100,7 +75,7 @@ module.exports = {
       }
     );
     await queryInterface.addColumn(
-      { ...options, tableName: "Memberships" },
+      "Memberships",
 
       "userId",
       {
@@ -109,7 +84,7 @@ module.exports = {
     );
 
     await queryInterface.addConstraint(
-      { ...options, tableName: "Memberships" },
+      "Memberships",
 
       {
         type: "FOREIGN KEY",
@@ -123,7 +98,7 @@ module.exports = {
       }
     );
     await queryInterface.addColumn(
-      { ...options, tableName: "Venues" },
+      "Venues",
 
       "groupId",
       {
@@ -131,21 +106,18 @@ module.exports = {
       }
     );
 
-    await queryInterface.addConstraint(
-      { ...options, tableName: "Venues" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["groupId"],
-        references: {
-          table: "Groups",
-          field: "id",
-        },
-      }
-    );
+    await queryInterface.addConstraint("Venues", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["groupId"],
+      references: {
+        table: "Groups",
+        field: "id",
+      },
+    });
     await queryInterface.addColumn(
-      { ...options, tableName: "Attendances" },
+      "Attendances",
 
       "eventId",
       {
@@ -153,29 +125,22 @@ module.exports = {
       }
     );
 
-    await queryInterface.addConstraint(
-      { ...options, tableName: "Attendances" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["eventId"],
-        references: {
-          table: "Events",
-          field: "id",
-        },
-      }
-    );
-    await queryInterface.addColumn(
-      { ...options, tableName: "Attendances" },
-      "userId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
+    await queryInterface.addConstraint("Attendances", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["eventId"],
+      references: {
+        table: "Events",
+        field: "id",
+      },
+    });
+    await queryInterface.addColumn("Attendances", "userId", {
+      type: Sequelize.INTEGER,
+    });
 
     await queryInterface.addConstraint(
-      { ...options, tableName: "Attendances" },
+      "Attendances",
 
       {
         type: "FOREIGN KEY",
@@ -189,49 +154,35 @@ module.exports = {
       }
     );
 
-    await queryInterface.addColumn(
-      { ...options, tableName: "EventImages" },
-      "eventId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
+    await queryInterface.addColumn("EventImages", "eventId", {
+      type: Sequelize.INTEGER,
+    });
 
-    await queryInterface.addConstraint(
-      { ...options, tableName: "EventImages" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["eventId"],
-        references: {
-          table: "Events",
-          field: "id",
-        },
-      }
-    );
+    await queryInterface.addConstraint("EventImages", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["eventId"],
+      references: {
+        table: "Events",
+        field: "id",
+      },
+    });
 
-    await queryInterface.addColumn(
-      { ...options, tableName: "GroupImages" },
-      "groupId",
-      {
-        type: Sequelize.INTEGER,
-      }
-    );
+    await queryInterface.addColumn("GroupImages", "groupId", {
+      type: Sequelize.INTEGER,
+    });
 
-    await queryInterface.addConstraint(
-      { ...options, tableName: "GroupImages" },
-      {
-        type: "FOREIGN KEY",
-        onDelete: "set null",
-        onUpdate: "cascade",
-        fields: ["groupId"],
-        references: {
-          table: "Groups",
-          field: "id",
-        },
-      }
-    );
+    await queryInterface.addConstraint("GroupImages", {
+      type: "FOREIGN KEY",
+      onDelete: "set null",
+      onUpdate: "cascade",
+      fields: ["groupId"],
+      references: {
+        table: "Groups",
+        field: "id",
+      },
+    });
   },
 
   async down(queryInterface, Sequelize) {
