@@ -13,6 +13,7 @@ module.exports = {
     dialect: "postgres",
     seederStorage: "sequelize",
     schema: process.env.SCHEMA,
+    searchPath: process.env.SCHEMA,
     define: {
       schema: process.env.SCHEMA,
     },
@@ -21,6 +22,7 @@ module.exports = {
         require: true,
         rejectUnauthorized: false,
       },
+      prependSearchPath: true
     },
   },
 };
