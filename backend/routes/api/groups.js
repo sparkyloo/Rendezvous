@@ -55,13 +55,11 @@ router.get('/current', requireAuth, async (req, res) => {
     }
   });
 
-  
+
 
   res.status(200)
   res.json({
     Groups: myMemberships.map(membership => {
-
-
       let group = membership.Group;
       let previewImage = null;
 
