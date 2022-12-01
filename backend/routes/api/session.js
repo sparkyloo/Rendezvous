@@ -20,14 +20,14 @@ router.get("/", restoreUser, (req, res) => {
       token,
     });
   } else {
-    return res.json({});
+    return res.json(null);
   }
 });
 
 router.delete("/", (req, res) => {
   deleteTokenCookie(res);
 
-  return res.json({});
+  return res.json(null);
 });
 
 const validateLogin = [

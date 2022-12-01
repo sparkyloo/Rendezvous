@@ -31,7 +31,7 @@ const setTokenCookie = (res, user) => {
 
 const deleteTokenCookie = (res) => {
   // Set the token cookie
-  res.cookie("token", null);
+  res.clearCookie("token");
 };
 
 const restoreUser = (req, res, next) => {

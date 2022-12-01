@@ -77,7 +77,7 @@ export const logout = () => async (dispatch) => {
   await csrfFetch("/api/session", {
     method: "DELETE",
   });
-  deleteCSRF();
+  //deleteCSRF();
   dispatch(removeUser());
 };
 
