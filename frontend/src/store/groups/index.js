@@ -1,8 +1,11 @@
 import { SET_GROUPS_LIST } from "./actions";
 
+export * from "./actions";
+export * from "./thunks";
+
 const initialState = {
-  allGroups: []
-}
+  allGroups: [],
+};
 
 export default function groupsReducer(state = initialState, action) {
   let nextState = state;
