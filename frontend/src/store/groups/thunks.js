@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf";
-import { setGroupsList, setSelectedGroup } from "./actions";
+import { setGroupsList, setSelectedGroup,setMyGroupsList } from "./actions";
 
 export function getAllGroups() {
   return async (dispatch) => {
@@ -14,6 +14,32 @@ export function getSelectedGroup(groupId) {
     const response = await csrfFetch(`/api/groups/${groupId}`);
     const data = await response.json();
     dispatch(setSelectedGroup(data));
+  };
+}
+
+export function getMyGroups() {
+  return async (dispatch) => {
+    const response = await csrfFetch("/api/groups/current");
+    const data = await response.json();
+    dispatch(setMyGroupsList(data.Groups));
+  };
+}
+
+export function createNewGroup({ name, about, type, isPrivate, city, state }) {
+  return async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/`, {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        about,
+        type,
+        city,
+        state,
+        private: isPrivate,
+      }),
+    });
+    const data = await response.json();
+    return data.id;
   };
 }
 

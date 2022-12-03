@@ -15,3 +15,12 @@ export function setSelectedGroup(group) {
     payload: group,
   };
 }
+
+export const SET_MY_GROUPS_LIST = "groups/setMyGroupsList";
+
+export function setMyGroupsList(list) {
+  return {
+    type: SET_MY_GROUPS_LIST,
+    payload: list,
+  };
+}
