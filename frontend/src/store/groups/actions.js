@@ -6,3 +6,12 @@ export function setGroupsList(list) {
     payload: list,
   };
 }
+
+export const SET_SELECTED_GROUP = "groups/setSelected";
+
+export function setSelectedGroup(group) {
+  return {
+    type: SET_SELECTED_GROUP,
+    payload: group,
+  };
+}
