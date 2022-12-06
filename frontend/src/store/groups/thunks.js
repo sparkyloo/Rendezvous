@@ -43,6 +43,33 @@ export function createNewGroup({ name, about, type, isPrivate, city, state }) {
   };
 }
 
+export function updateGroup({ name, about, type, isPrivate, city, state }){
+  return async(dispatch)=>{
+    const response = await csrfFetch(`/api/groups/`, {
+      method: "PUT",
+      body: JSON.stringify({
+        name,
+        about,
+        type,
+        city,
+        state,
+        private: isPrivate,
+      }),
+    });
+    const data = await response.json();
+    return data.id;
+  }
+}
+
+export function deleteGroup(groupId){
+  return async(dispatch)=>{
+    const response = await csrfFetch(`/api/groups/${groupId}`,{
+      method: "DELETE"
+    });
+    dispatch(setSelectedGroup(null));
+  }
+}
+
 // export function get________(){
 //   return async(dispatch)=>{
 //     //
