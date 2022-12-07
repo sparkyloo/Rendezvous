@@ -1,0 +1,47 @@
+.group-item {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.group-item .item-image {
+  width: 250px;
+  height: 175px;
+  object-fit: contain;
+  margin-right: 20px;
+}
+
+.group-item .item-description {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  color: gray;
+}
+
+.group-item .item-title {
+  font-size: x-large;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.group-item .item-location {
+  font-weight: bold;
+  color: green;
+}
+
+.group-item .item-summary {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 42px;
+  overflow: hidden;
+}
+
+.group-item .item-members {
+  margin-right: 5px;
+}
+
+.group-item .item-privacy {
+  margin-left: 5px;
+}
