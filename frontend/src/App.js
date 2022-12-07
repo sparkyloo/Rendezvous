@@ -5,7 +5,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import SplashPage from "./components/SplashPage";
+import GroupsFeed from "./components/GroupsFeed";
+import EventsFeed from "./components/EventsFeed";
 import MyGroups from "./components/MyGroups";
 import NewGroupPage from "./components/NewGroup";
 import GroupDetails from "./components/GroupDetails";
@@ -24,7 +25,10 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <SplashPage></SplashPage>
+            <GroupsFeed />
+          </Route>
+          <Route exact path="/events">
+            <EventsFeed />
           </Route>
           <Route path="/login">
             <LoginFormPage />
