@@ -43,7 +43,7 @@ module.exports = {
       [
         {
           groupId: 1,
-          url: "https://example.com",
+          url: "https://i.picsum.photos/id/158/800/500.jpg?hmac=vydxMu8BAfVibEdyHB2KPDG0KpUNv4LuUBTO-44XiSk",
           preview: true,
         },
       ],
