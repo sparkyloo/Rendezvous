@@ -1,4 +1,44 @@
 /* TODO Add site wide styles */
+body {
+  margin: 0;
+}
+
 #app-root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: sans-serif;
+  font-size: 16px;
+}
+
+input, textarea, button {
+  font-size: 16px;
+}
+
+#app-root:first-child {
+  flex-grow: 0;
+}
+
+#app-root .page-content {
+  flex: 1;
+}
+
+.form-input {
+  border: solid #eee 1px;
+  border-radius: 5px;
+  padding: 8px 12px;
+}
+
+.form-button {
+  border-radius: 5px;
+  padding: 8px 12px;
+  border-width: 0;
+  cursor: pointer;
+  color: white;
+  background-color: #f65858;
+}
+
+.form-button:hover {
+  background-color: #f77070;
 }

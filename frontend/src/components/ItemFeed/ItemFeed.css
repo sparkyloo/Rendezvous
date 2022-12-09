@@ -9,7 +9,7 @@
   width: 250px;
   height: 175px;
   object-fit: contain;
-  margin-right: 20px;
+  margin-right: 19px;
 }
 
 .group-item .item-description {
@@ -28,7 +28,7 @@
 
 .group-item .item-location {
   font-weight: bold;
-  color: green;
+  color: black;
 }
 
 .group-item .item-summary {
