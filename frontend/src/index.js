@@ -8,8 +8,8 @@ import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
 import * as groupActions from "./store/groups";
-import * as eventActions from './store/events';
-import * as venueActions from './store/venues';
+import * as eventActions from "./store/events";
+import * as venueActions from "./store/venues";
 
 const store = configureStore();
 
@@ -23,6 +23,15 @@ if (process.env.NODE_ENV !== "production") {
   window.eventActions = eventActions;
   window.venueActions = venueActions;
 }
+
+window.demoUser = () => {
+  store.dispatch(
+    sessionActions.login({
+      credentials: "demo@user.io",
+      password: "password",
+    })
+  );
+};
 
 function Root() {
   return (
