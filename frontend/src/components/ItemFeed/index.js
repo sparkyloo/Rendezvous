@@ -1,29 +1,96 @@
 import "./ItemFeed.css";
 import React, { useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
+import Location from "../Location";
+import DateDisplay from "../DateDisplay";
+import Dot from "../Dot";
 
-export default function ItemFeed({ type, items }) {
+export default function ItemFeed({ type, items, showParentLink, onAttend }) {
   return (
     <div>
       {items.map((item) => {
-        return (
-          <div key={item.id} className={`${type}-item`}>
-            <img className="item-image" src={item.previewImage} />
-            <div className="item-description">
-              <div className="item-title">{item.name}</div>
+        let detailsDestination = "";
+        let parentDestination = "";
+
+        if (type === "group") {
+          detailsDestination = `/group/${item.id}`;
+        } else {
+          detailsDestination = `/event/${item.id}`;
+        }
+
+        let city = "";
+        let state = "";
+        let location = null;
+
+        if (type === "group") {
+          city = item.city;
+          state = item.state;
+        } else if (item.Venue) {
+          city = item.Venue.city;
+          state = item.Venue.state;
+        }
+
+        if (type === "event") {
+          if (item.type === "Online") {
+            location = <div className="item-location">Online (Zoom)</div>;
+          } else if (!city && !state) {
+            location = <div className="item-location">TBD</div>;
+          } else {
+            location = (
               <div className="item-location">
-                {item.city.toUpperCase()}, {item.state.toUpperCase()}
+                {city.toUpperCase()}, {state.toUpperCase()}
               </div>
+            );
+          }
+
+          parentDestination = `/group/${item.groupId}`;
+        } else {
+          location = (
+            <div className="item-location">
+              {city.toUpperCase()}, {state.toUpperCase()}
+            </div>
+          );
+        }
+
+        return (
+          <div key={item.id} className={`item-feed ${type}-item`}>
+            <Link to={detailsDestination}>
+              <img className="item-image" src={item.previewImage} />
+            </Link>
+            <div className="item-description">
+              <Link to={detailsDestination}>
+                <div className="item-title">{item.name}</div>
+              </Link>
+              <Location type={type} item={item} linkTo={detailsDestination} />
               <div className="item-summary">
+                {showParentLink && parentDestination && (
+                  <div>
+                    By the <Link to={parentDestination}>{item.Group.name}</Link>{" "}
+                    group
+                  </div>
+                )}
+                {type === "event" && <DateDisplay date={item.startDate} />}
                 {item.about || item.description}
               </div>
               <div className="item-details">
-                <span className="item-members">
-                  {item.numMembers} members
-                </span>
-                <Dot />
-                <span className="item-privacy">
-                  {item.private ? "Private" : "Public"}
-                </span>
+                {type === "group" ? (
+                  <>
+                    <span className="item-members">
+                      {item.numMembers} members
+                    </span>{" "}
+                    <Dot />{" "}
+                    <span className="item-privacy">
+                      {item.private ? "Private" : "Public"}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="item-members">
+                      {item.numAttending} attendees
+                    </span>
+                    <button onClick={onAttend}>Attend</button>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -31,60 +98,4 @@ export default function ItemFeed({ type, items }) {
       })}
     </div>
   );
-}
-
-const dayOfTheWeek = [null, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-
-const months = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
-];
-
-const getTime = (date) => {
-  const time = date.toTimeString().split(" ");
-
-  let zone = time[1];
-  zone = zone.split("-")[0];
-
-  let [hour, minute] = time[0].split(":").map((n) => parseInt(n));
-  let suffix = "AM";
-
-  if (hour >= 12) {
-    suffix = "PM";
-
-    if (hour > 12) {
-      hour -= 12;
-    }
-  }
-
-  if (minute < 10) {
-    minute = `0${minute}`;
-  } else {
-    minute = minute.toString();
-  }
-
-  return `${hour}:${minute} ${suffix} ${zone}`;
-};
-
-function DateDisplay({ date }) {
-  return (
-    <div>
-      {dayOfTheWeek[date.getDay()]}, {months[date.getMonth()]} {date.getDate()}{" "}
-      <Dot /> {getTime(date)}
-    </div>
-  );
-}
-
-function Dot() {
-  return <span>·</span>;
 }
