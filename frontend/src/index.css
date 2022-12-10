@@ -30,15 +30,36 @@ input, textarea, button {
   padding: 8px 12px;
 }
 
-.form-button {
+button {
+  cursor: pointer;
+}
+
+a {
+  color: #f65858;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #c80000;
+}
+
+a:hover {
+  color: #f77070;
+  text-decoration: underline;
+}
+
+button {
   border-radius: 5px;
   padding: 8px 12px;
   border-width: 0;
-  cursor: pointer;
   color: white;
   background-color: #f65858;
 }
 
-.form-button:hover {
+button:hover {
   background-color: #f77070;
+}
+
+.detail-page {
+  padding: 0px 100px;
 }
