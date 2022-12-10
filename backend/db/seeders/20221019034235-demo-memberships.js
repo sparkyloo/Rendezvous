@@ -27,11 +27,36 @@ module.exports = {
         {
           userId: 2,
           groupId: 1,
-          status: "co-host",
+          status: "host",
         },
         {
           userId: 3,
-          groupId: 1,
+          groupId: 2,
+          status: "member",
+        },
+        {
+          userId: 3,
+          groupId: 3,
+          status: "host",
+        },
+        {
+          userId: 5,
+          groupId: 2,
+          status: "host",
+        },
+        {
+          userId: 4,
+          groupId: 4,
+          status: "host",
+        },
+        {
+          userId: 6,
+          groupId: 5,
+          status: "host",
+        },
+        {
+          userId: 2,
+          groupId: 5,
           status: "pending",
         },
       ],
@@ -43,7 +68,27 @@ module.exports = {
       [
         {
           groupId: 1,
-          url: "https://i.picsum.photos/id/158/800/500.jpg?hmac=vydxMu8BAfVibEdyHB2KPDG0KpUNv4LuUBTO-44XiSk",
+          url: "https://i.picsum.photos/id/177/2515/1830.jpg?hmac=G8-2Q3-YPB2TreOK-4ofcmS-z5F6chIA0GHYAe5yzDY",
+          preview: true,
+        },
+        {
+          groupId: 2,
+          url: "https://i.picsum.photos/id/237/800/500.jpg?hmac=HN1WJb4ZR7VuBNTwAhkuPwv-3ZtPWK0MWFRmh9X5__w",
+          preview: true,
+        },
+        {
+          groupId: 3,
+          url: "/chocolate-lab.jpg",
+          preview: true,
+        },
+        {
+          groupId: 4,
+          url: "/ausie.jpg",
+          preview: true,
+        },
+        {
+          groupId: 5,
+          url: "/shush.jpeg",
           preview: true,
         },
       ],

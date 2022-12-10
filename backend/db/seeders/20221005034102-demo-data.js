@@ -27,18 +27,38 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
+          firstName: "Samwise",
+          lastName: "Gamgee",
+          email: "sam.g@fellowship.org",
+          hashedPassword: bcrypt.hashSync("password"),
+        },
+        {
           firstName: "Meatloaf",
           lastName: "Erina",
-          email: "user1@user.io",
-          username: "FakeUser1",
-          hashedPassword: bcrypt.hashSync("password2"),
+          email: "loafy@meats.net",
+          username: "BigBarker",
+          hashedPassword: bcrypt.hashSync("password"),
+        },
+        {
+          firstName: "Babloo",
+          lastName: "Fred",
+          email: "babs@meats.net",
+          username: "babaloon",
+          hashedPassword: bcrypt.hashSync("password"),
+        },
+        {
+          firstName: "Sparky",
+          lastName: "Lee",
+          email: "sparklee@meats.net",
+          username: "sparklingPup",
+          hashedPassword: bcrypt.hashSync("password"),
         },
         {
           firstName: "Fanny",
           lastName: "Fane",
-          email: "user2@user.io",
-          username: "FakeUser2",
-          hashedPassword: bcrypt.hashSync("password3"),
+          email: "fun.fanny@fofotus.com",
+          username: "NotDanny",
+          hashedPassword: bcrypt.hashSync("password"),
         },
       ],
       {}
@@ -49,13 +69,53 @@ module.exports = {
       [
         {
           organizerId: 1,
-          name: "Evening Tennis on the Water",
+          name: "Hill Striders",
           about:
-            "Enjoy rounds of tennis with a tight-nit group of people on the water facing the Brooklyn Bridge. Singles or doubles.",
+            "Take majestic hikes with like-minded hobbits (men, dwarves, elves and any other fair folk are welcome too).",
           type: "In person",
           private: true,
-          city: "New York",
-          state: "NY",
+          city: "The Shire",
+          state: "ME",
+        },
+        {
+          organizerId: 2,
+          name: "We Love Puppies",
+          about:
+            "They are just the cutest; come join us and share the love of puppies with us.",
+          type: "In person",
+          private: true,
+          city: "Elk Grove",
+          state: "CA",
+        },
+        {
+          organizerId: 2,
+          name: "Chocolate Lab Weight Loss Support Group",
+          about:
+            "Do you have a chunky chocolate lab in your life? Bring them to play with our group to aid in their weight loss journey. (please don't bring any meat)",
+          type: "In person",
+          private: true,
+          city: "Elk Grove",
+          state: "CA",
+        },
+        {
+          organizerId: 2,
+          name: "We Love Australian Shepherds",
+          about:
+            "Have you `herd` of how `aussome` Australian Shepherds are? If so join our group.",
+          type: "In person",
+          private: true,
+          city: "Elk Grove",
+          state: "CA",
+        },
+        {
+          organizerId: 3,
+          name: "Great-Wolf-Lodge Anonymous",
+          about:
+            "Are you neglecting your work and family focusing all your thoughts on MagiQuest? So are we; come enjoy waterslides and children's activities without your kids.",
+          type: "In person",
+          private: true,
+          city: "Manteca",
+          state: "CA",
         },
       ],
       {}
