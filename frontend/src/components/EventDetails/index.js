@@ -33,7 +33,7 @@ export default function EventDetails() {
       return false;
     }
 
-    const { selected = {} } = groups;
+    const selected = groups.selected || {};
 
     if (user.id === selected.organizerId) {
       return true;
@@ -61,14 +61,9 @@ export default function EventDetails() {
   useEffect(() => {
     if (event) {
       dispatch(getGroupEvents(event.groupId)).catch(redirectWhenError);
-    }
-  }, [event]);
-
-  useEffect(() => {
-    if (event) {
       dispatch(getSelectedGroup(event.groupId)).catch(redirectWhenError);
     }
-  }, [eventId]);
+  }, [event]);
 
   if (!event) {
     return null;
