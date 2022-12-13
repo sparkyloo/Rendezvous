@@ -1,5 +1,5 @@
 import { csrfFetch } from "../csrf";
-import { setGroupsList, setSelectedGroup,setMyGroupsList } from "./actions";
+import { setGroupsList, setSelectedGroup, setMyGroupsList } from "./actions";
 
 export function getAllGroups() {
   return async (dispatch) => {
@@ -43,9 +43,12 @@ export function createNewGroup({ name, about, type, isPrivate, city, state }) {
   };
 }
 
-export function updateGroup({ name, about, type, isPrivate, city, state }){
-  return async(dispatch)=>{
-    const response = await csrfFetch(`/api/groups/`, {
+export function updateGroup(
+  groupId,
+  { name, about, type, isPrivate, city, state }
+) {
+  return async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/${groupId}`, {
       method: "PUT",
       body: JSON.stringify({
         name,
@@ -58,16 +61,16 @@ export function updateGroup({ name, about, type, isPrivate, city, state }){
     });
     const data = await response.json();
     return data.id;
-  }
+  };
 }
 
-export function deleteGroup(groupId){
-  return async(dispatch)=>{
-    const response = await csrfFetch(`/api/groups/${groupId}`,{
-      method: "DELETE"
+export function deleteGroup(groupId) {
+  return async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/${groupId}`, {
+      method: "DELETE",
     });
     dispatch(setSelectedGroup(null));
-  }
+  };
 }
 
 // export function get________(){

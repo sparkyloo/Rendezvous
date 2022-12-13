@@ -225,7 +225,7 @@ router.put("/:groupId", requireAuth, validateGroupInput, async (req, res) => {
       statusCode: 403,
     });
   } else {
-    await theGroup.set(req.body);
+    await theGroup.update(req.body);
 
     res.status(200);
     res.json(theGroup.toJSON());

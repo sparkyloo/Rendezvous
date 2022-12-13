@@ -113,24 +113,27 @@ export default function GroupDetails() {
           <div className="group-actions">
             {/* {!hasMembership && <SpecialButton label="Join" />} */}
             {isGroupAdmin && (
-              <button
-                onClick={() => history.push(`/group/${groupId}/new-event`)}
-              >
-                Create Event
-              </button>
-            )}
-            {isGroupAdmin && (
-              <button
-                onClick={() =>
-                  dispatch(deleteGroup(groupId))
-                    .then(() => {
-                      history.push("/my-groups");
-                    })
-                    .catch(redirectWhenError)
-                }
-              >
-                Delete Group
-              </button>
+              <>
+                <button
+                  onClick={() => history.push(`/group/${groupId}/new-event`)}
+                >
+                  Create Event
+                </button>
+                <button onClick={() => history.push(`/group/${groupId}/edit`)}>
+                  Edit Group
+                </button>
+                <button
+                  onClick={() =>
+                    dispatch(deleteGroup(groupId))
+                      .then(() => {
+                        history.push("/my-groups");
+                      })
+                      .catch(redirectWhenError)
+                  }
+                >
+                  Delete Group
+                </button>
+              </>
             )}
           </div>
         </div>

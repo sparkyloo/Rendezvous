@@ -1,0 +1,11 @@
+.edit-group-page {
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.edit-group-page .edit-group-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
