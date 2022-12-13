@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as sessionActions from '../../store/session';
+import * as sessionActions from "../../store/session";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function ProfileButton({ user }) {
       setShowMenu(false);
     };
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -29,7 +29,7 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  const history = useHistory()
+  const history = useHistory();
 
   return (
     <>
@@ -37,16 +37,18 @@ function ProfileButton({ user }) {
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={() => history.push('/my-groups')}>My Groups</button>
-          </li>
-          <li>
+        <div className="profile-dropdown shadowed">
+          <div className="profile-info">
+            <div className="username">{user.username}</div>
+            <div className="email">{user.email}</div>
+          </div>
+          <div className="profile-buttons">
+            <button onClick={() => history.push("/my-groups")}>
+              My Groups
+            </button>
             <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+          </div>
+        </div>
       )}
     </>
   );

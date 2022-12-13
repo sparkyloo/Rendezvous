@@ -19,7 +19,7 @@ module.exports = {
 
     await queryInterface.addConstraint("Groups", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["organizerId"],
       references: {
@@ -33,7 +33,7 @@ module.exports = {
 
     await queryInterface.addConstraint("Events", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["groupId"],
       references: {
@@ -47,7 +47,7 @@ module.exports = {
 
     await queryInterface.addConstraint("Events", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["venueId"],
       references: {
@@ -65,7 +65,7 @@ module.exports = {
 
       {
         type: "FOREIGN KEY",
-        onDelete: "set null",
+        onDelete: "cascade",
         onUpdate: "cascade",
         fields: ["groupId"],
         references: {
@@ -88,7 +88,7 @@ module.exports = {
 
       {
         type: "FOREIGN KEY",
-        onDelete: "set null",
+        onDelete: "cascade",
         onUpdate: "cascade",
         fields: ["userId"],
         references: {
@@ -108,7 +108,7 @@ module.exports = {
 
     await queryInterface.addConstraint("Venues", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["groupId"],
       references: {
@@ -127,7 +127,7 @@ module.exports = {
 
     await queryInterface.addConstraint("Attendances", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["eventId"],
       references: {
@@ -144,7 +144,7 @@ module.exports = {
 
       {
         type: "FOREIGN KEY",
-        onDelete: "set null",
+        onDelete: "cascade",
         onUpdate: "cascade",
         fields: ["userId"],
         references: {
@@ -160,7 +160,7 @@ module.exports = {
 
     await queryInterface.addConstraint("EventImages", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["eventId"],
       references: {
@@ -175,7 +175,7 @@ module.exports = {
 
     await queryInterface.addConstraint("GroupImages", {
       type: "FOREIGN KEY",
-      onDelete: "set null",
+      onDelete: "cascade",
       onUpdate: "cascade",
       fields: ["groupId"],
       references: {

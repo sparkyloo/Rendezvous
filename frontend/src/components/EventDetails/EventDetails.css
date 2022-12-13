@@ -1,0 +1,47 @@
+.event-page {
+  padding-bottom: 200px;
+}
+
+.event-page .masthead {
+  display: flex;
+  gap: 40px;
+}
+
+.event-page .masthead .event-image {
+  flex: 1;
+  object-fit: contain;
+  max-width: 400px;
+}
+
+.event-page .masthead .event-info {
+  max-width: 350px;
+}
+
+.event-page .masthead .event-info h1 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.event-page .masthead .event-info .subtitle {
+  font-size: large;
+}
+
+.event-page .masthead .event-info .event-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-page .masthead .organizer {
+  font-weight: 600;
+}
+
+.event-page .event-description {
+  margin-bottom: 70px;
+}
+
+.event-page .no-events-message {
+  color: gray;
+  font-weight: 300;
+  font-style: italic;
+}

@@ -1,10 +1,10 @@
-.new-group-page {
+.new-event-page {
   max-width: 500px;
   margin: auto;
   margin-bottom: 30px;
 }
 
-.new-group-page .new-group-form {
+.new-event-page .new-event-form {
   display: flex;
   flex-direction: column;
   gap: 10px;

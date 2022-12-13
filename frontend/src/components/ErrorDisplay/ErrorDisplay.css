@@ -1,0 +1,11 @@
+.error-display {
+  border: solid orange 1px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 0, 0.2);
+  padding: 5px 30px;
+  margin-bottom: 20px;
+}
+
+.error-display .error-display-message {
+  font-weight: 600;
+}

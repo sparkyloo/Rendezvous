@@ -24,12 +24,6 @@ input, textarea, button {
   flex: 1;
 }
 
-.form-input {
-  border: solid #eee 1px;
-  border-radius: 5px;
-  padding: 8px 12px;
-}
-
 button {
   cursor: pointer;
 }
@@ -60,6 +54,25 @@ button:hover {
   background-color: #f77070;
 }
 
+.feed-page {
+  padding: 0px 100px 80px;
+}
+
 .detail-page {
   padding: 0px 100px;
+}
+
+.shadowed {
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  padding-inline-start: 20px;
+}
+
+.misc-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./NewGroup.css";
 import { createNewGroup } from "../../store/groups/thunks";
+import FormField from "../FormField";
+import RadioSet from "../RadioSet";
+import CheckboxField from "../CheckboxField";
+import ErrorDisplay from "../ErrorDisplay";
+import { useErrorHandling } from "../../error-handling";
+
+const GROUP_TYPES = ["In person", "Online"];
 
 function NewGroupPage() {
   const dispatch = useDispatch();
@@ -14,27 +20,19 @@ function NewGroupPage() {
   const [isPrivate, setIsPrivate] = useState(false);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [errors, setErrors] = useState([]);
+
+  const { gatherErrors, clearErrors, errors } = useErrorHandling();
 
   const history = useHistory();
 
   if (!sessionUser) return <Redirect to="/" />;
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setErrors([]);
-  //   return dispatch(sessionActions.login({ name, about }))
-  //   .catch(
-  //     async (res) => {
-  //       const data = await res.json();
-  //       if (data && data.errors) setErrors(data.errors);
-  //     }
-  //   );
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newGroupId = await dispatch(
+
+    clearErrors();
+
+    dispatch(
       createNewGroup({
         name,
         about,
@@ -43,89 +41,43 @@ function NewGroupPage() {
         city,
         state,
       })
-    );
-
-    history.push(`/group/${newGroupId}`);
+    )
+      .then((newGroupId) => {
+        history.push(`/group/${newGroupId}`);
+      })
+      .catch(gatherErrors);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
-      <label>
-        Name
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        About
-        <input
-          type="text"
-          value={about}
-          onChange={(e) => setAbout(e.target.value)}
-          required
-        />
-      </label>
-      <fieldset>
-        <legend>Group Type</legend>
-        <label>
-          Online
-          <input
-            type="radio"
-            checked={groupType === "Online"}
-            onChange={() => {
-              setGroupType("Online");
-            }}
-          />
-        </label>
-        <label>
-          In person
-          <input
-            type="radio"
-            checked={groupType === "In person"}
-            onChange={() => {
-              setGroupType("In person");
-            }}
-          />
-        </label>
-      </fieldset>
-      <label>
-        Private
-        <input
-          type="checkbox"
+    <div className="new-group-page">
+      <h1>Create a group</h1>
+      <ErrorDisplay errors={errors} />
+      <form className="new-group-form" onSubmit={(e) => handleSubmit(e)}>
+        <CheckboxField
+          id="private"
+          label="Is this a private group?"
           checked={isPrivate}
-          onChange={() => {
-            setIsPrivate(!isPrivate);
-          }}
+          setChecked={setIsPrivate}
         />
-      </label>
-      <label>
-        City
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
+        <FormField id="name" label="Name" value={name} setValue={setName} />
+        <FormField
+          id="about"
+          label="About"
+          type="textarea"
+          value={about}
+          setValue={setAbout}
         />
-      </label>
-      <label>
-        State
-        <input
-          type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
+        <FormField id="city" label="City" value={city} setValue={setCity} />
+        <FormField id="state" label="State" value={state} setValue={setState} />
+        <RadioSet
+          label="Group Type"
+          options={GROUP_TYPES}
+          value={groupType}
+          setValue={setGroupType}
         />
-      </label>
-      <button type="submit">Create</button>
-    </form>
+        <button type="submit">Create</button>
+      </form>
+    </div>
   );
 }
 

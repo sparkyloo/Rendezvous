@@ -1,0 +1,22 @@
+.radio-set {
+  display: flex;
+  gap: 10px;
+  border: solid #eee 1px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.radio-set .radio-set-option {
+  display: flex;
+  align-items: center;
+}
+
+.radio-set .radio-set-option label {
+  /*  */
+}
+
+.radio-set .radio-set-option input {
+  width: 16px;
+  height: 16px;
+  border: solid #eee 1px;
+}

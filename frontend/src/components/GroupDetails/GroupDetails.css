@@ -1,0 +1,44 @@
+.group-page {
+  padding-bottom: 200px;
+}
+
+.group-page .masthead {
+  display: flex;
+  gap: 40px;
+}
+
+.group-page .masthead .group-image {
+  height: 300px;
+  width: 500px;
+  object-fit: contain;
+}
+
+.group-page .masthead .group-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-page .masthead .group-info .group-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.group-page .masthead .subtitle {
+  font-size: large;
+  margin: 0;
+}
+
+.group-page .masthead .organizer {
+  font-weight: 600;
+}
+
+.group-page .group-description {
+  margin-bottom: 70px;
+}
+
+.group-page .no-events-message {
+  color: gray;
+  font-weight: 300;
+  font-style: italic;
+}

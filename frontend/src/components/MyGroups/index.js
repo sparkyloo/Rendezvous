@@ -1,8 +1,8 @@
 import "./MyGroups.css";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getMyGroups } from "../../store/groups/thunks";
-import { useHistory } from "react-router-dom";
+import ItemFeed from "../ItemFeed";
 
 export default function MyGroups() {
   const dispatch = useDispatch();
@@ -14,25 +14,14 @@ export default function MyGroups() {
     dispatch(getMyGroups());
   }, []);
 
-  const history = useHistory();
-
   return (
-    <div>
-      <button onClick={() => history.push("/new-group")}>Create Group</button>
-      {myGroups.map((group) => {
-        return (
-          <div>
-            <ul>
-              <li>{group.name}</li>
-              <li>{group.about}</li>
-              <li>{group.city}</li>
-              <li>{group.state}</li>
-              <li>{group.type}</li>
-              <li>{group.private}</li>
-            </ul>
-          </div>
-        );
-      })}
+    <div className="feed-page">
+      <h1>My Groups</h1>
+      {myGroups.length ? (
+        <ItemFeed type="group" items={myGroups} />
+      ) : (
+        <p>You are not a member of any groups yet, why not create one?</p>
+      )}
     </div>
   );
 }

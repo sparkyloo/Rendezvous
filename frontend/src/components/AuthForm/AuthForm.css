@@ -1,0 +1,21 @@
+.authentication-page {
+  height: 100%;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.authentication-page .call-to-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.authentication-page .authentication-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

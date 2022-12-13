@@ -1,0 +1,33 @@
+.splash-page {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.splash-page .list-options {
+  display: flex;
+}
+
+.splash-page .list-options button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.splash-page .list-options button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.splash-page .list-options .active-list {
+  pointer-events: none;
+  border-color: #f65858;
+}
+
+.splash-page .list-options .inactive-list {
+  cursor: pointer;
+  background-color: white;
+  color: #f65858;
+  border: solid 1px;
+  border-color: #f65858;
+}

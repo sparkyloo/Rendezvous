@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== "production") {
 window.demoUser = () => {
   store.dispatch(
     sessionActions.login({
-      credentials: "demo@user.io",
+      credential: "demo@user.io",
       password: "password",
     })
   );

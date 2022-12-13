@@ -1,4 +1,3 @@
-
 // mutating redux state causes my components to not rerender...
 // this is a recursive deep clone so I will never have to deal with mutated state objects
 // thanks StackOverflow

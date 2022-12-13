@@ -1,5 +1,5 @@
 import "./ItemFeed.css";
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Location from "../Location";
 import DateDisplay from "../DateDisplay";
@@ -55,7 +55,10 @@ export default function ItemFeed({ type, items, showParentLink, onAttend }) {
         return (
           <div key={item.id} className={`item-feed ${type}-item`}>
             <Link to={detailsDestination}>
-              <img className="item-image" src={item.previewImage} />
+              <img
+                className="item-image"
+                src={item.previewImage || "https://plchldr.co/i/300x200"}
+              />
             </Link>
             <div className="item-description">
               <Link to={detailsDestination}>
@@ -88,7 +91,6 @@ export default function ItemFeed({ type, items, showParentLink, onAttend }) {
                     <span className="item-members">
                       {item.numAttending} attendees
                     </span>
-                    <button onClick={onAttend}>Attend</button>
                   </>
                 )}
               </div>
