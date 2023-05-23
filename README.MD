@@ -1,4 +1,4 @@
-# Meetup Clone
+# Rendezvous (Meetup Clone)
 
 ## Database Schema Design
 
